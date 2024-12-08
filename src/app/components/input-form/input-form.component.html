@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <mat-form-field class="full-width">
+    <mat-label>Estabelecimento</mat-label>
+    <input matInput formControlName="name" placeholder="Estabelecimento" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Data (DD/MM/YYYY)</mat-label>
+    <input matInput formControlName="date" (input)="handleDateChange($event)" placeholder="Data" required>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Preço</mat-label>
+    <input matInput formControlName="price" placeholder="Preço" type="number" required>
+  </mat-form-field>
+
+  <mat-select formControlName="month" placeholder="Selecione o mês" required>
+    <mat-option *ngFor="let mes of meses; let i = index" [value]="i + 1">
+      {{ mes }}
+    </mat-option>
+  </mat-select>
+
+  <mat-select formControlName="year" placeholder="Selecione o ano" required>
+    <mat-option *ngFor="let ano of anos" [value]="ano">
+      {{ ano }}
+    </mat-option>
+  </mat-select>
+
+  <mat-checkbox formControlName="isParcel">Parcelado</mat-checkbox>
+
+  <mat-form-field class="full-width" *ngIf="form.get('isParcel')?.value">
+    <mat-label>Quantidade de Parcelas</mat-label>
+    <input matInput formControlName="quantity" type="number" placeholder="Quantidade de Parcelas" min="2">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Salvar</button>
+</form>

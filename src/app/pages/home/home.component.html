@@ -1,0 +1,52 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Campos de Salário</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="salary-inputs-container">
+        <mat-checkbox (change)="toggleSaldo15($event)" [checked]="somarSaldo15">
+          Salário dia 15: R$ {{ salaries.SALARIO15 }}
+        </mat-checkbox>
+        <mat-checkbox (change)="toggleSaldo30($event)" [checked]="somarSaldo30">
+          Salário dia 30: R$ {{ salaries.SALARIO30 }}
+        </mat-checkbox>
+        <div class="label">Saldo Atual: R$ {{ salaries.SALDOATUAL }}</div>
+      </div>
+
+      <div class="months-buttons-container">
+        <button *ngFor="let month of getNextMonths()" mat-raised-button color="primary" (click)="handleMonthChange(month.index)">
+          {{ month.name }}
+        </button>
+      </div>
+
+      <div class="total-label">
+        Total dos Salários: R$ {{ totalSalaries.toFixed(2) }}
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-header>
+        <mat-card-title>Títulos de Cartões</mat-card-title>
+      </mat-card-header>
+
+      <div *ngIf="isLoading" class="loading">Carregando...</div>
+      <mat-list>
+        <mat-list-item *ngFor="let card of cards">
+          <div class="card-row">
+            <div class="card-text">Card {{ card.name }}:</div>
+            <div class="card-text">R$ {{ (totalsByMonth[card.id] || 0).toFixed(2) }}</div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+
+      <mat-divider></mat-divider>
+      <div class="final-result">
+        <div>Total por cartão: R$ {{ total.toFixed(2) }}</div>
+        <div [ngStyle]="{'color': finalDifference > 0 ? 'green' : finalDifference < 0 ? 'red' : 'blue'}">
+          Diferença Final: R$ {{ finalDifference.toFixed(2) }}
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

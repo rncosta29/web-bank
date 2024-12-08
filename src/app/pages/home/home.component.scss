@@ -1,0 +1,100 @@
+/* Container principal */
+.container {
+  padding: 20px;
+  max-width: 1200px; /* Limita a largura em telas grandes */
+  margin: 0 auto;
+}
+
+/* Container para os campos de salários */
+.salary-inputs-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Permite que os elementos quebrem em telas menores */
+  gap: 15px;
+  justify-content: space-between;
+}
+
+/* Estilo das labels */
+.label {
+  font-size: 16px;
+  color: #555;
+}
+
+/* Container para os botões de meses */
+.months-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Permite quebra de linha em telas pequenas */
+  gap: 10px;
+}
+
+/* Estilo do label de total */
+.total-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Linha de cartão */
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-text {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Estilo do resultado final */
+.final-result {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #007bff;
+}
+
+/* Estilo de carregamento */
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #999;
+}
+
+/* Media Queries para telas pequenas */
+@media (max-width: 768px) {
+  .salary-inputs-container {
+    flex-direction: column; /* Empilha os inputs verticalmente */
+  }
+
+  .months-buttons-container {
+    flex-direction: column; /* Empilha os botões de meses verticalmente */
+  }
+
+  .card-row {
+    flex-direction: column; /* Empilha as informações dos cartões verticalmente */
+    align-items: flex-start;
+  }
+
+  .card-text {
+    font-size: 14px; /* Reduz o tamanho da fonte em telas pequenas */
+  }
+
+  .final-result {
+    font-size: 16px; /* Ajuste no tamanho do resultado final */
+  }
+}
+
+/* Media Queries para telas médias */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .salary-inputs-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .card-row {
+    justify-content: space-between;
+  }
+}

@@ -1,0 +1,31 @@
+.list-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.list-item-text {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.delete-button {
+  padding: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  mat-icon {
+    color: #FF0000;
+  }
+
+  &:hover {
+    background-color: #f1f1f1;
+    border-radius: 50%;
+  }
+}
