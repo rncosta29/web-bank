@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   form: FormGroup;
   somarSaldo15: any;
   somarSaldo30: any;
+  saldoTotal: any;
 
   constructor(private readonly apiService: ApiService, private readonly fb: FormBuilder) {
     this.form = this.fb.group({
@@ -60,7 +61,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['somarSaldo15'] || changes['somarSaldo30']) {
+    if (changes['somarSaldo15'] || changes['somarSaldo30'] || changes['saldoTotal']) {
       this.updateTotalSalaries();
       this.updateFinalDifference();
     }

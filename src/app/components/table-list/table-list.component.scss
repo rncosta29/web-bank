@@ -1,7 +1,7 @@
 .list-item-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start; /* Alinha os itens à esquerda */
+  align-items: center; /* Alinha os itens verticalmente no centro */
   background-color: #fff;
   border-radius: 8px;
   padding: 15px;
@@ -12,6 +12,9 @@
 .list-item-text {
   font-size: 14px;
   margin-bottom: 5px;
+  flex: 1; /* Faz com que cada p ocupe o mesmo espaço disponível */
+  padding: 0 10px;
+  text-align: left; /* Alinha o texto à esquerda dentro de cada p */
 }
 
 .delete-button {

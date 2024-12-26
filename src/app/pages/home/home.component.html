@@ -42,11 +42,19 @@
 
       <mat-divider></mat-divider>
       <div class="final-result">
-        <div>Total por cartão: R$ {{ total.toFixed(2) }}</div>
+        <div>Total das Contas: R$ {{ total.toFixed(2) }}</div>
         <div [ngStyle]="{'color': finalDifference > 0 ? 'green' : finalDifference < 0 ? 'red' : 'blue'}">
           Diferença Final: R$ {{ finalDifference.toFixed(2) }}
         </div>
       </div>
     </mat-card-content>
+    <div class="button-container">
+      <button mat-raised-button color="accent" routerLink="/account" class="credit-card-button">
+        Conta
+      </button>
+      <button mat-raised-button color="accent" routerLink="/credit-card" class="credit-card-button">
+        Cartões Detalhados
+      </button>
+    </div>
   </mat-card>
 </div>

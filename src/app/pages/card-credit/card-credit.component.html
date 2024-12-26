@@ -1,10 +1,17 @@
 <mat-toolbar color="primary">
+  <button mat-icon-button (click)="goBack()" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
   Cartões de Crédito
 </mat-toolbar>
 
 <div class="cards-container">
-  <!-- Cada card agora é um botão com estilo de card -->
-  <button mat-card *ngFor="let card of cards" (click)="onCardSelect(card.id)" class="card-button">
+  <button
+    *ngFor="let card of cards"
+    class="card-button"
+    [class.selected]="selectedCardId === card.id"
+    (click)="onCardSelect(card.id)"
+  >
     <mat-card-title>{{ card.name }}</mat-card-title>
   </button>
 </div>
@@ -14,58 +21,89 @@
   <div>{{ total | currency }}</div>
 </div>
 
-<div class="filter-container">
-  <mat-form-field appearance="fill">
-    <mat-label>Ano</mat-label>
-    <mat-select [(value)]="selectedYear" (selectionChange)="loadBills()">
-      <mat-option *ngFor="let year of availableYears" [value]="year">{{ year }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="month-container">
+  <button
+    *ngFor="let month of months"
+    mat-button
+    [color]="selectedMonth === month ? 'primary' : ''"
+    (click)="selectMonth(month)"
+  >
+    {{ month }}
+  </button>
+</div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Mês</mat-label>
-    <mat-select [(value)]="selectedMonth" (selectionChange)="loadBills()">
-      <mat-option *ngFor="let month of availableMonths" [value]="month">{{ month | number: '2.0' }}</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="year-container">
+  <button
+    *ngFor="let year of years"
+    mat-button
+    [color]="selectedYear === year ? 'primary' : ''"
+    (click)="selectYear(year)"
+  >
+    {{ year }}
+  </button>
+</div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Parcelado?</mat-label>
-    <mat-select [(value)]="isInstallments" (selectionChange)="onInstallmentsChange()">
-      <mat-option [value]="true">Sim</mat-option>
-      <mat-option [value]="false">Não</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill" *ngIf="isInstallments">
-    <mat-label>Número de Parcelas</mat-label>
-    <input matInput formControlName="installmentsCount" type="number" placeholder="Número de parcelas">
-  </mat-form-field>
+<div class="list-item-container">
+  <p class="list-item-text">Estabelecimento</p>
+  <p class="list-item-text">Data</p>
+  <p class="list-item-text">Preço</p>
+  <p class="delete-button"></p>
 </div>
 
 <mat-list>
   <mat-list-item *ngFor="let bill of cardBills">
-    <!-- Acessando a descrição e preço usando notação com índice -->
-    <div>{{ bill['description'] }} - {{ bill['price'] | currency }}</div>
+    <app-table-list
+      [name]="bill.name"
+      [date]="bill.date"
+      [price]="bill.price">
+    </app-table-list>
   </mat-list-item>
 </mat-list>
 
 <!-- Botão para adicionar nova transação -->
 <button mat-raised-button color="primary" (click)="openAddDialog()">Adicionar</button>
 
-<mat-dialog-content *ngIf="add">
-  <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <mat-label>Descrição</mat-label>
-      <input matInput formControlName="description" placeholder="Descrição da transação">
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Valor</mat-label>
-      <input matInput formControlName="amount" type="number" placeholder="Valor da transação">
-    </mat-form-field>
-    <div class="dialog-buttons">
-      <button mat-button (click)="closeAddDialog()">Cancelar</button>
-      <button mat-raised-button type="submit" [disabled]="addForm.invalid">Adicionar</button>
-    </div>
-  </form>
-</mat-dialog-content>
+<ng-template #addDialog>
+  <h2 mat-dialog-title>Adicionar Transação</h2>
+  <mat-dialog-content>
+    <form [formGroup]="addForm">
+      <mat-form-field appearance="fill">
+        <mat-label>Estabelecimento</mat-label>
+        <input matInput formControlName="description" placeholder="Nome do estabelecimento">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Preço</mat-label>
+        <input matInput formControlName="price" type="number" placeholder="Preço">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Mês</mat-label>
+        <mat-select formControlName="month">
+          <mat-option *ngFor="let month of availableMonths" [value]="month">{{ month }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ano</mat-label>
+        <mat-select formControlName="year">
+          <mat-option *ngFor="let year of availableYears" [value]="year">{{ year }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-checkbox formControlName="isInstallments" (change)="onInstallmentsChange()">
+        Parcelado
+      </mat-checkbox>
+      <mat-form-field appearance="fill" *ngIf="isInstallments">
+        <mat-label>Parcelas</mat-label>
+        <input matInput formControlName="installmentsCount" type="number" placeholder="Número de parcelas">
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeAddDialog()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="addForm.invalid">Salvar</button>
+  </mat-dialog-actions>
+</ng-template>

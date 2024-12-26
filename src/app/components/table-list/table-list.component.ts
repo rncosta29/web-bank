@@ -9,9 +9,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TableListComponent {
 
-  @Input() name!: string;
-  @Input() date!: string;
-  @Input() price!: number;
+  @Input() name: string = '';
+  @Input() date: string = '';
+  @Input() price: string = '';
   @Output() onDelete = new EventEmitter<void>();
 
   handleDelete() {

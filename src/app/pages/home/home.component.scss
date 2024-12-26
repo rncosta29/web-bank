@@ -33,6 +33,7 @@
   font-size: 16px;
   font-weight: bold;
   color: #007bff;
+  margin-top: 50px;
 }
 
 /* Linha de cartão */
@@ -98,3 +99,32 @@
     justify-content: space-between;
   }
 }
+
+/* Container do botão */
+.button-container {
+  display: flex;
+  justify-content: space-around; /* Alinha o botão à direita */
+  margin-top: 20px;
+}
+
+/* Botão de cartões detalhados */
+.credit-card-button {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px 20px;
+  text-transform: uppercase; /* Torna o texto em maiúsculo */
+  border-radius: 8px;
+}
+
+/* Media Queries para ajuste responsivo */
+@media (max-width: 768px) {
+  .button-container {
+    justify-content: center; /* Centraliza o botão em telas pequenas */
+  }
+
+  .credit-card-button {
+    font-size: 14px; /* Reduz o tamanho do texto em telas menores */
+    padding: 8px 16px; /* Ajusta o espaçamento do botão */
+  }
+}
+

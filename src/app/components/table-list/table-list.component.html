@@ -1,9 +1,7 @@
 <div class="list-item-container">
-  <div>
-    <p class="list-item-text">Estabelecimento: {{ name }}</p>
-    <p class="list-item-text">Data: {{ date }}</p>
-    <p class="list-item-text">Preço: R$ {{ price | number: '1.2-2' }}</p>
-  </div>
+  <p class="list-item-text">{{name}} </p>
+  <p class="list-item-text">{{date}}</p>
+  <p class="list-item-text">R$ {{ price | number: '1.2-2' }} </p>
   <button mat-icon-button class="delete-button" (click)="handleDelete()">
     <mat-icon>delete</mat-icon>
   </button>

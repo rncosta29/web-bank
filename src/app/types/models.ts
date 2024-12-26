@@ -35,3 +35,18 @@ export interface SendNewBills {
   paymentYear: number;
   quantity: number;
 }
+
+export interface PersonalAccount {
+  id: number;
+  nameAccount: string;
+  balance: number;
+  debitAccountModel: DebitAccount[]
+}
+
+export interface DebitAccount {
+  id: number;
+  institution: string;
+  date: string;
+  price: number;
+  personalAccountId: number;
+}

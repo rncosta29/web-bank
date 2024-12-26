@@ -7,7 +7,7 @@ import { DataItem, Card, SendNewBills } from '../types/models'; // Importe os ti
   providedIn: 'root'
 })
 export class ApiService {
-  private readonly baseURL: string = 'http://localhost:8765/API-BANK/api/v1'; // URL base da API
+  private readonly baseURL: string = 'http://192.168.15.15:8765/API-BANK/api/v1'; // URL base da API
 
   constructor(private readonly http: HttpClient) {}
 

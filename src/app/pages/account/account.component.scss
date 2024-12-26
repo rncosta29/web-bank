@@ -1,0 +1,132 @@
+// Toolbar fixa no topo
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Estilo geral do conteúdo
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+// Saldo total fixo logo abaixo da toolbar
+.saldo-card {
+  position: sticky;
+  top: 64px; // Altura do toolbar
+  z-index: 10;
+  background-color: #e8f5e9;
+  margin-bottom: 16px;
+
+  .saldo-row {
+    display: flex;
+    justify-content: space-between; // Espaça os elementos igualmente
+    align-items: center; // Centraliza verticalmente os itens
+    padding: 8px;
+
+    p {
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .saldo-valor {
+      text-align: right; // Alinha o valor à direita
+    }
+  }
+}
+
+// Lista com scroll
+.list-container {
+  flex: 1;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+// Itens da lista
+.list-item {
+  .list-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+
+    .column {
+      &.estabelecimento {
+        flex: 2; // Ocupa maior espaço
+        text-align: left;
+      }
+
+      &.data {
+        flex: 1.5; // Espaço intermediário
+        text-align: center;
+      }
+
+      &.valor {
+        flex: 1; // Espaço menor
+        text-align: right;
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px; // Espaçamento entre os ícones
+    }
+  }
+}
+
+// Formulário fixo na parte inferior
+.form-card {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background-color: #ffffff;
+  border-top: 2px solid #ddd;
+
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+
+    mat-form-field {
+      flex: 1; // Cada campo ocupa espaço proporcional
+    }
+
+    button {
+      flex: 0; // Botão ocupa espaço fixo
+    }
+  }
+}
+
+// Responsividade
+@media (max-width: 600px) {
+  .list-row {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .column {
+      flex: none;
+      text-align: left;
+    }
+
+    .actions {
+      align-self: flex-end;
+    }
+  }
+
+  .form-row {
+    flex-direction: column;
+
+    mat-form-field,
+    button {
+      width: 100%;
+    }
+  }
+}

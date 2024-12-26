@@ -1,0 +1,67 @@
+<!-- Toolbar fixa no topo -->
+<mat-toolbar color="primary" class="toolbar">
+  <button mat-icon-button (click)="goBack()" class="back-button">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span>Informações da Conta</span>
+</mat-toolbar>
+
+<div class="content">
+  <!-- Saldo total fixo -->
+  <mat-card class="saldo-card">
+    <mat-card-content>
+      <div class="saldo-row">
+        <p>Saldo Total</p>
+        <p class="saldo-valor">R$ {{ saldoTotal | number: '1.2-2' }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Lista com scroll -->
+  <div class="list-container">
+    <mat-card class="list-item" *ngFor="let x of data; let i = index">
+      <mat-card-content>
+        <div class="list-row">
+          <span class="column estabelecimento">{{ x.estabelecimento }}</span>
+          <span class="column data">{{ x.data }}</span>
+          <span class="column valor">R$ {{ x.price | number: '1.2-2' }}</span>
+          <!-- Ícones de ação -->
+          <span class="actions">
+            <button mat-icon-button (click)="editItem(i)">
+              <mat-icon color="primary">edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="deleteItem(i)">
+              <mat-icon color="warn">delete</mat-icon>
+            </button>
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Formulário fixo -->
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="accountForm" (ngSubmit)="addData()" class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Estabelecimento</mat-label>
+          <input matInput formControlName="estabelecimento" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Data</mat-label>
+          <input matInput formControlName="data" type="date" required />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Valor</mat-label>
+          <input matInput formControlName="price" type="number" required />
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid">
+          Adicionar
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
